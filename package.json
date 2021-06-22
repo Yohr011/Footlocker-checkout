@@ -1,0 +1,25 @@
+{
+  "name": "footsites",
+  "version": "1.0.0",
+  "description": "Automated footsites checkout",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AE-X/Footsites.git"
+  },
+  "author": "AE-X",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AE-X/Footsites/issues"
+  },
+  "homepage": "https://github.com/AE-X/Footsites#readme",
+  "dependencies": {
+    "colors": "^1.4.0",
+    "got": "^11.8.2",
+    "tough-cookie": "^4.0.0",
+    "uuid": "^8.3.2"
+  }
+}

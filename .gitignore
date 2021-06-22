@@ -1,3 +1,9 @@
+#MacOS DS_Store
+.DS_Store
+
+#Testing Folder
+testing/
+
 # Logs
 logs
 *.log
