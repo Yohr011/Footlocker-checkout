@@ -15,7 +15,6 @@ const main = async () => {
             let response = await got(`https://www.footlocker.com/api/v3/session?timestamp=${Date.now()}`, {
                 headers: {
                     "authority": "www.footlocker.com",
-                    "scheme": "https",
                     "accept": "application/json",
                     "accept-encoding": "gzip, deflate, br",
                     "accept-language": "en-US,en;q=0.9",
@@ -45,12 +44,12 @@ const main = async () => {
     
     let sizeId = [];
     var sizeSelect;
+    var jSes;
     const getPdp = async () => {
         try {
             let response = await got(`https://www.footlocker.com/api/products/pdp/${sku}?timestamp=${Date.now()}`, {
                 headers: {
                     "authority": "www.footlocker.com",
-                    "scheme": "https",
                     "accept": "application/json",
                     "accept-encoding": "gzip, deflate, br",
                     "accept-language": "en-US,en;q=0.9",
@@ -69,6 +68,8 @@ const main = async () => {
             })
             const variantAttribute = JSON.parse(response.body).variantAttributes[0].code;
             const pdpSizes = JSON.parse(response.body).sellableUnits;
+            let re = /(?<=JSESSIONID=)([^;]*)/s;
+            jSes = re.exec(cookieJar.store.idx['www.footlocker.com']['/'].JSESSIONID)[0]
             for (let i = 0; i < pdpSizes.length; i++) {
                 // console.log(`${pdpSizes[i].attributes[1].id} - ${variantAttribute}`)
                 // console.log(pdpSizes[i].stockLevelStatus)
@@ -93,7 +94,6 @@ const main = async () => {
             let response = await got.post(`https://www.footlocker.com/api/users/carts/current/entries?timestamp=${Date.now()}`, {
                 headers: {
                     "authority": "www.footlocker.com",
-                    "scheme": "https",
                     "accept": "application/json",
                     "accept-encoding": "gzip, deflate, br",
                     "accept-language": "en-US,en;q=0.9",
@@ -110,6 +110,7 @@ const main = async () => {
                     "user-agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.106 Safari/537.36",
                     "x-csrf-token": csrfToken,
                     "x-fl-productid": sizeSelect,
+                    "x-flapi-session-id": jSes,
                     "x-fl-request-id": uuidv4(),
                 },
                 json: {"productQuantity":1,"productId":sizeSelect},
@@ -131,7 +132,6 @@ const main = async () => {
             let response = await got.put(`https://www.footlocker.com/api/users/carts/current/email/deezbruh@example.org?timestamp=${Date.now()}`, {
                 headers: {
                     "authority": "www.footlocker.com",
-                    "scheme": "https",
                     "accept": "application/json",
                     "accept-encoding": "gzip, deflate, br",
                     "accept-language": "en-US,en;q=0.9",
@@ -147,6 +147,7 @@ const main = async () => {
                     "sec-fetch-site": "same-origin",
                     "user-agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.106 Safari/537.36",
                     "x-csrf-token": csrfToken,
+                    "x-flapi-session-id": jSes,
                     "x-fl-request-id": uuidv4(),
                 },
                 cookieJar: cookieJar
@@ -166,7 +167,6 @@ const main = async () => {
             let response = await got.post(`https://www.footlocker.com/api/users/carts/current/addresses/shipping?timestamp=${Date.now()}`, {
                 headers: {
                     "authority": "www.footlocker.com",
-                    "scheme": "https",
                     "accept": "application/json",
                     "accept-encoding": "gzip, deflate, br",
                     "accept-language": "en-US,en;q=0.9",
@@ -182,6 +182,7 @@ const main = async () => {
                     "sec-fetch-site": "same-origin",
                     "user-agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.106 Safari/537.36",
                     "x-csrf-token": csrfToken,
+                    "x-flapi-session-id": jSes,
                     "x-fl-request-id": uuidv4(),
                 },
                 json: {"shippingAddress":{"setAsDefaultBilling":false,"setAsDefaultShipping":false,"firstName":"Deez","lastName":"Bruh","phone":"3051233210","country":{"isocode":"US","name":"United States"},"email":false,"id":null,"setAsBilling":true,"saveInAddressBook":false,"region":{"countryIso":"US","isocode":"US-FL","isocodeShort":"FL","name":"Florida"},"type":"default","LoqateSearch":"","line1":"1600 Pennsylvania Avenue","postalCode":"33139","town":"MIAMI BEACH","regionFPO":null,"shippingAddress":true,"recordType":" "}},
@@ -203,7 +204,6 @@ const main = async () => {
             let response = await got.post(`https://www.footlocker.com/api/users/carts/current/set-billing?timestamp=${Date.now()}`, {
                 headers: {
                     "authority": "www.footlocker.com",
-                    "scheme": "https",
                     "accept": "application/json",
                     "accept-encoding": "gzip, deflate, br",
                     "accept-language": "en-US,en;q=0.9",
@@ -219,6 +219,7 @@ const main = async () => {
                     "sec-fetch-site": "same-origin",
                     "user-agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.106 Safari/537.36",
                     "x-csrf-token": csrfToken,
+                    "x-flapi-session-id": jSes,
                     "x-fl-request-id": uuidv4(),
                 },
                 json: {"setAsDefaultBilling":false,"setAsDefaultShipping":false,"firstName":"Deez","lastName":"Bruh","phone":"3051233210","country":{"isocode":"US","name":"United States"},"email":false,"id":null,"setAsBilling":false,"saveInAddressBook":false,"region":{"countryIso":"US","isocode":"US-FL","isocodeShort":"FL","name":"Florida"},"type":"default","LoqateSearch":"","line1":"1600 Pennsylvania Avenue","postalCode":"33139","town":"MIAMI BEACH","regionFPO":null,"shippingAddress":true,"recordType":" ","visibleInAddressBook":false},
@@ -255,7 +256,6 @@ const main = async () => {
             let response = await got.post(`https://www.footlocker.com/api/v2/users/orders?timestamp=${Date.now()}`, {
                 headers: {
                     "authority": "www.footlocker.com",
-                    "scheme": "https",
                     "accept": "application/json",
                     "accept-encoding": "gzip, deflate, br",
                     "accept-language": "en-US,en;q=0.9",
@@ -271,6 +271,7 @@ const main = async () => {
                     "sec-fetch-site": "same-origin",
                     "user-agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.106 Safari/537.36",
                     "x-csrf-token": csrfToken,
+                    "x-flapi-session-id": jSes,
                     "x-fl-request-id": uuidv4()
                 },
                 json: {
