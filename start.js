@@ -1,15 +1,12 @@
+const fs = require('fs')
 const Task = require('./index.js')
 
-let numtask = 2;
+let tasks = Object.create(JSON.parse(fs.readFileSync('./tasks.json', {encoding:'utf8', flag:'r'})))
+let x = 1;
 
-for (let i = 1; i < numtask + 1; i++) {
-    let task = new Task(i, 'X6898010', {
-        number : '4767 7183 9736 8103',       // 'xxxx xxxx xxxx xxxx'
-        cvc : '588',                 //'xxx'
-        holderName : 'Deez Bruh',   // 'John Doe'
-        expiryMonth : '06', //'MM'
-        expiryYear : '2027',   // 'YYYY'
-        generationtime : new Date().toISOString() // new Date().toISOString()
-    });
+for (i in tasks) {
+    tasks[i]['generationTime'] = new Date().toISOString()
+    let task = new Task(x, tasks[i]['sku'], tasks[i]['cardData']);
+    x+=1
     task.start();
 }

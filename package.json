@@ -18,6 +18,7 @@
   "homepage": "https://github.com/AE-X/Footsites#readme",
   "dependencies": {
     "colors": "^1.4.0",
+    "fs": "0.0.1-security",
     "got": "^11.8.2",
     "node-adyen-encrypt": "^2.3.1",
     "tough-cookie": "^4.0.0",

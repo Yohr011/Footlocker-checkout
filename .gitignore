@@ -4,6 +4,9 @@
 #Testing Folder
 testing/
 
+#Tasks file
+tasks.json
+
 # Logs
 logs
 *.log
