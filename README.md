@@ -2,7 +2,7 @@
 
 To create a task, edit tasks.json to include your information. Replace the current info with yours.
 To add more tasks, add another task object to the json file in the same format as the previous task objects:
-
+```JSON
 {
     "task1": {
         "sku": "X6898010",
@@ -25,3 +25,4 @@ To add more tasks, add another task object to the json file in the same format a
         }
     }
 }
+```
