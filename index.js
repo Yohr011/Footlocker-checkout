@@ -13,9 +13,10 @@ function sleep(ms) {
 }
 
 module.exports = class Task {
-    constructor(num, sku, cardData) {
+    constructor(num, sku, cardData, personalData) {
         this.sku = sku;
         this.cardData = cardData;
+        this.personalData = personalData;
         this.num = num;
 
         this.cookieJar = new tough.CookieJar();
@@ -145,7 +146,7 @@ module.exports = class Task {
 
     async contactInfo() {
         try {
-            let response = await got.put(`https://www.footlocker.com/api/users/carts/current/email/deezbruh@example.org?timestamp=${Date.now()}`, {
+            let response = await got.put(`https://www.footlocker.com/api/users/carts/current/email/${this.personalData.email}?timestamp=${Date.now()}`, {
                 headers: {
                     "authority": "www.footlocker.com",
                     "accept": "application/json",
@@ -205,9 +206,9 @@ module.exports = class Task {
                     "shippingAddress": {
                         "setAsDefaultBilling": false,
                         "setAsDefaultShipping": false,
-                        "firstName": "John",
-                        "lastName": "Doe",
-                        "phone": "3051233210",
+                        "firstName": this.personalData.firstName,
+                        "lastName": this.personalData.lastName,
+                        "phone": this.personalData.phoneNumber,
                         "country": {
                             "isocode": "US",
                             "name": "United States"
@@ -218,15 +219,15 @@ module.exports = class Task {
                         "saveInAddressBook": false,
                         "region": {
                             "countryIso": "US",
-                            "isocode": "US-FL",
-                            "isocodeShort": "FL",
-                            "name": "Florida"
+                            "isocode": `US-${this.personalData.stateAbbreviation}`,
+                            "isocodeShort": this.personalData.stateAbbreviation,
+                            "name": this.personalData.state
                         },
                         "type": "default",
                         "LoqateSearch": "",
-                        "line1": "1600 Pennsylvania Avenue",
-                        "postalCode": "33139",
-                        "town": "MIAMI BEACH",
+                        "line1": this.personalData.streetAddress,
+                        "postalCode": this.personalData.zipCode,
+                        "town": this.personalData.city,
                         "regionFPO": null,
                         "shippingAddress": true,
                         "recordType": " "
@@ -270,9 +271,9 @@ module.exports = class Task {
                 json: {
                     "setAsDefaultBilling": false,
                     "setAsDefaultShipping": false,
-                    "firstName": "John",
-                    "lastName": "Doe",
-                    "phone": "3051233210",
+                    "firstName": this.personalData.firstName,
+                    "lastName": this.personalData.lastName,
+                    "phone": this.personalData.phoneNumber,
                     "country": {
                         "isocode": "US",
                         "name": "United States"
@@ -283,15 +284,15 @@ module.exports = class Task {
                     "saveInAddressBook": false,
                     "region": {
                         "countryIso": "US",
-                        "isocode": "US-FL",
-                        "isocodeShort": "FL",
-                        "name": "Florida"
+                        "isocode": `US-${this.personalData.stateAbbreviation}`,
+                        "isocodeShort": this.personalData.stateAbbreviation,
+                        "name": this.personalData.state
                     },
                     "type": "default",
                     "LoqateSearch": "",
-                    "line1": "1600 Pennsylvania Avenue",
-                    "postalCode": "33139",
-                    "town": "MIAMI BEACH",
+                    "line1": this.personalData.streetAddress,
+                    "postalCode": this.personalData.zipCode,
+                    "town": this.personalData.city,
                     "regionFPO": null,
                     "shippingAddress": true,
                     "recordType": " ",

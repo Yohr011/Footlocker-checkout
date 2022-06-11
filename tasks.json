@@ -7,6 +7,17 @@
             "holderName": "Card Holder",
             "expiryMonth": "06",
             "expiryYear": "2021"
+        },
+        "personalData": {
+            "email": "johndoe@example.com",
+            "firstName": "John",
+            "lastName": "Doe",
+            "phoneNumber": "3051233210",
+            "streetAddress": "1600 Pennsylvania Avenue",
+            "city": "MIAMI BEACH",
+            "state": "Florida",
+            "stateAbbreviation": "FL",
+            "zipCode": "33139"
         }
     },
     "task2": {
@@ -17,6 +28,17 @@
             "holderName": "Card Holder",
             "expiryMonth": "12",
             "expiryYear": "2022"
+        },
+        "personalData": {
+            "email": "johndoe@example.com",
+            "firstName": "John",
+            "lastName": "Doe",
+            "phoneNumber": "3051233210",
+            "streetAddress": "1600 Pennsylvania Avenue",
+            "city": "MIAMI BEACH",
+            "state": "Florida",
+            "stateAbbreviation": "FL",
+            "zipCode": "33139"
         }
     }
 }

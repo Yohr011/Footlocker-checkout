@@ -1,27 +1,49 @@
 #  Automated footlocker checkout
 
-To create a task, edit tasks.json to include your information. Replace the current info with yours. Current shipping and billing addresses are set to example values in the request bodies for submitShipping and submitBilling in [index.js](index.js).
+To create a task, edit [tasks.json](tasks.json) to include your information. Replace the current info with yours.
 To add more tasks, add another task object to the json file in the same format as the previous task objects:
 ```JSON
 {
     "task1": {
         "sku": "X6898010",
         "cardData": {
-            "number" : "4444 4444 4444 4444",
-            "cvc" : "123",
-            "holderName" : "Card Holder",
-            "expiryMonth" : "06",
-            "expiryYear" : "2021"
+            "number": "4444 4444 4444 4444",
+            "cvc": "123",
+            "holderName": "Card Holder",
+            "expiryMonth": "06",
+            "expiryYear": "2021"
+        },
+        "personalData": {
+            "email": "johndoe@example.com",
+            "firstName": "John",
+            "lastName": "Doe",
+            "phoneNumber": "3051233210",
+            "streetAddress": "1600 Pennsylvania Avenue",
+            "city": "MIAMI BEACH",
+            "state": "Florida",
+            "stateAbbreviation": "FL",
+            "zipCode": "33139"
         }
     },
     "task2": {
         "sku": "X7180913",
         "cardData": {
-            "number" : "4242 4242 4242 4242",
-            "cvc" : "321",
-            "holderName" : "Card Holder",
-            "expiryMonth" : "12",
-            "expiryYear" : "2022"
+            "number": "4242 4242 4242 4242",
+            "cvc": "321",
+            "holderName": "Card Holder",
+            "expiryMonth": "12",
+            "expiryYear": "2022"
+        },
+        "personalData": {
+            "email": "johndoe@example.com",
+            "firstName": "John",
+            "lastName": "Doe",
+            "phoneNumber": "3051233210",
+            "streetAddress": "1600 Pennsylvania Avenue",
+            "city": "MIAMI BEACH",
+            "state": "Florida",
+            "stateAbbreviation": "FL",
+            "zipCode": "33139"
         }
     }
 }
