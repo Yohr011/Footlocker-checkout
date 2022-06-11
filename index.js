@@ -4,8 +4,13 @@ const colors = require('colors');
 const { v4: uuidv4 } = require('uuid');
 const adyenEncrypt = require('node-adyen-encrypt')(18);
 
-function randchoice(array) {array[Math.floor(Math.random() * array.length)]}
-function sleep(ms) {new Promise((resolve) => setTimeout(resolve, ms))}
+function randchoice(array) {
+    array[Math.floor(Math.random() * array.length)]
+}
+
+function sleep(ms) {
+    new Promise((resolve) => setTimeout(resolve, ms))
+}
 
 module.exports = class Task {
     constructor(num, sku, cardData) {
@@ -45,13 +50,13 @@ module.exports = class Task {
                 },
                 cookieJar: this.cookieJar
             })
-            response.statusCode == 200 ? console.log(`Task ${this.num}`.underline.blue + ` - Status ${response.statusCode}: Initiated session`.cyan) : console.log(`Task ${this.num}`.underline.blue + ` - Status ${response.statusCode}: ${response.statusMessage}`.red)
-            this.csrfToken = JSON.parse(response.body).data.csrfToken
-        } catch(err) {
+            response.statusCode == 200 ? console.log(`Task ${this.num}`.underline.blue + ` - Status ${response.statusCode}: Initiated session`.cyan) : console.log(`Task ${this.num}`.underline.blue + ` - Status ${response.statusCode}: ${response.statusMessage}`.red);
+            this.csrfToken = JSON.parse(response.body).data.csrfToken;
+        } catch (err) {
             try {
-                console.log(`Task ${this.num}`.underline.blue + ` - ${err.response.body}`.red)
-            } catch(e) {
-                console.log(`Task ${this.num}`.underline.blue + ` - ${err}`)
+                console.log(`Task ${this.num}`.underline.blue + ` - ${err.response.body}`.red);
+            } catch (e) {
+                console.log(`Task ${this.num}`.underline.blue + ` - ${err}`);
             }
         }
     }
@@ -80,22 +85,19 @@ module.exports = class Task {
             this.variantAttribute = JSON.parse(response.body).variantAttributes[0].code;
             this.pdpSizes = JSON.parse(response.body).sellableUnits;
             let re = /(?<=JSESSIONID=)([^;]*)/s;
-            this.jSes = re.exec(this.cookieJar.store.idx['www.footlocker.com']['/'].JSESSIONID)[0]
+            this.jSes = re.exec(this.cookieJar.store.idx['www.footlocker.com']['/'].JSESSIONID)[0];
             for (let i = 0; i < this.pdpSizes.length; i++) {
-                // console.log(`${pdpSizes[i].attributes[1].id} - ${variantAttribute}`)
-                // console.log(pdpSizes[i].stockLevelStatus)
-                // console.log('---------------------------')
                 if (this.pdpSizes[i].attributes[1].id === this.variantAttribute && this.pdpSizes[i].stockLevelStatus === 'inStock') {
-                    this.sizeId.push(this.pdpSizes[i].attributes[0].id)
+                    this.sizeId.push(this.pdpSizes[i].attributes[0].id);
                 }
             }
-            this.sizeSelect = this.sizeId[Math.floor(Math.random() * this.sizeId.length)]
-            response.statusCode == 200 ? console.log(`Task ${this.num}`.underline.blue + ` - Status ${response.statusCode}: Got size ID (${response.headers['x-cache']})`.cyan) : console.log(`Task ${this.num}`.underline.blue + ` - Status ${response.statusCode}: ${response.statusMessage}`.red)
-        } catch(err) {
+            this.sizeSelect = this.sizeId[Math.floor(Math.random() * this.sizeId.length)];
+            response.statusCode == 200 ? console.log(`Task ${this.num}`.underline.blue + ` - Status ${response.statusCode}: Got size ID (${response.headers['x-cache']})`.cyan) : console.log(`Task ${this.num}`.underline.blue + ` - Status ${response.statusCode}: ${response.statusMessage}`.red);
+        } catch (err) {
             try {
-                console.log(`Task ${this.num}`.underline.blue + ` - ${err.response.body}`)
-            } catch(e) {
-                console.log(`Task ${this.num}`.underline.blue + ` - ${err}`)
+                console.log(`Task ${this.num}`.underline.blue + ` - ${err.response.body}`);
+            } catch (e) {
+                console.log(`Task ${this.num}`.underline.blue + ` - ${err}`);
             }
         }
     }
@@ -124,16 +126,19 @@ module.exports = class Task {
                     "x-flapi-session-id": this.jSes,
                     "x-fl-request-id": uuidv4(),
                 },
-                json: {"productQuantity":1,"productId":this.sizeSelect},
+                json: {
+                    "productQuantity": 1,
+                    "productId": this.sizeSelect
+                },
                 cookieJar: this.cookieJar
             })
             let atcResponse = JSON.parse(response.body);
-            response.statusCode == 200 ? console.log(`Task ${this.num}`.underline.blue + ` - Status ${response.statusCode}: Successful ATC - ${atcResponse.entries[0].product.baseOptions[1].selected.sku} size ${atcResponse.entries[0].product.baseOptions[0].selected.size} (${response.headers['x-cache']})`.magenta) : console.log(`Task ${this.num}`.underline.blue + ` - Status ${response.statusCode}: ${response.statusMessage}`.red)
-        } catch(err) {
+            response.statusCode == 200 ? console.log(`Task ${this.num}`.underline.blue + ` - Status ${response.statusCode}: Successful ATC - ${atcResponse.entries[0].product.baseOptions[1].selected.sku} size ${atcResponse.entries[0].product.baseOptions[0].selected.size} (${response.headers['x-cache']})`.magenta) : console.log(`Task ${this.num}`.underline.blue + ` - Status ${response.statusCode}: ${response.statusMessage}`.red);
+        } catch (err) {
             try {
-                console.log(`Task ${this.num}`.underline.blue + ` - ${err.response.body}`)
-            } catch(e) {
-                console.log(`Task ${this.num}`.underline.blue + ` - ${err}`)
+                console.log(`Task ${this.num}`.underline.blue + ` - ${err.response.body}`);
+            } catch (e) {
+                console.log(`Task ${this.num}`.underline.blue + ` - ${err}`);
             }
         }
     }
@@ -163,12 +168,12 @@ module.exports = class Task {
                 },
                 cookieJar: this.cookieJar
             })
-            response.statusCode == 200 ? console.log(`Task ${this.num}`.underline.blue + ` - Status ${response.statusCode}: Submitted contact info`.cyan) : console.log(`Task ${this.num}`.underline.blue + ` - Status ${response.statusCode}: ${response.statusMessage}`.red)
-        } catch(err) {
+            response.statusCode == 200 ? console.log(`Task ${this.num}`.underline.blue + ` - Status ${response.statusCode}: Submitted contact info`.cyan) : console.log(`Task ${this.num}`.underline.blue + ` - Status ${response.statusCode}: ${response.statusMessage}`.red);
+        } catch (err) {
             try {
-                console.log(`Task ${this.num}`.underline.blue + ` - ${err.response.body}`)
-            } catch(e) {
-                console.log(`Task ${this.num}`.underline.blue + ` - ${err}`)
+                console.log(`Task ${this.num}`.underline.blue + ` - ${err.response.body}`);
+            } catch (e) {
+                console.log(`Task ${this.num}`.underline.blue + ` - ${err}`);
             }
         }
     }
@@ -196,15 +201,45 @@ module.exports = class Task {
                     "x-flapi-session-id": this.jSes,
                     "x-fl-request-id": uuidv4(),
                 },
-                json: {"shippingAddress":{"setAsDefaultBilling":false,"setAsDefaultShipping":false,"firstName":"Deez","lastName":"Bruh","phone":"3051233210","country":{"isocode":"US","name":"United States"},"email":false,"id":null,"setAsBilling":true,"saveInAddressBook":false,"region":{"countryIso":"US","isocode":"US-FL","isocodeShort":"FL","name":"Florida"},"type":"default","LoqateSearch":"","line1":"1600 Pennsylvania Avenue","postalCode":"33139","town":"MIAMI BEACH","regionFPO":null,"shippingAddress":true,"recordType":" "}},
+                json: {
+                    "shippingAddress": {
+                        "setAsDefaultBilling": false,
+                        "setAsDefaultShipping": false,
+                        "firstName": "John",
+                        "lastName": "Doe",
+                        "phone": "3051233210",
+                        "country": {
+                            "isocode": "US",
+                            "name": "United States"
+                        },
+                        "email": false,
+                        "id": null,
+                        "setAsBilling": true,
+                        "saveInAddressBook": false,
+                        "region": {
+                            "countryIso": "US",
+                            "isocode": "US-FL",
+                            "isocodeShort": "FL",
+                            "name": "Florida"
+                        },
+                        "type": "default",
+                        "LoqateSearch": "",
+                        "line1": "1600 Pennsylvania Avenue",
+                        "postalCode": "33139",
+                        "town": "MIAMI BEACH",
+                        "regionFPO": null,
+                        "shippingAddress": true,
+                        "recordType": " "
+                    }
+                },
                 cookieJar: this.cookieJar
             })
-            response.statusCode == 201 ? console.log(`Task ${this.num}`.underline.blue + ` - Status ${response.statusCode}: Submitted shipping info`.cyan) : console.log(`Task ${this.num}`.underline.blue + ` - Status ${response.statusCode}: ${response.statusMessage}`.red)
-        } catch(err) {
+            response.statusCode == 201 ? console.log(`Task ${this.num}`.underline.blue + ` - Status ${response.statusCode}: Submitted shipping info`.cyan) : console.log(`Task ${this.num}`.underline.blue + ` - Status ${response.statusCode}: ${response.statusMessage}`.red);
+        } catch (err) {
             try {
-                console.log(`Task ${this.num}`.underline.blue + ` - ${err.response.body}`)
-            } catch(e) {
-                console.log(`Task ${this.num}`.underline.blue + ` - ${err}`)
+                console.log(`Task ${this.num}`.underline.blue + ` - ${err.response.body}`);
+            } catch (e) {
+                console.log(`Task ${this.num}`.underline.blue + ` - ${err}`);
             }
         }
     }
@@ -232,17 +267,46 @@ module.exports = class Task {
                     "x-flapi-session-id": this.jSes,
                     "x-fl-request-id": uuidv4(),
                 },
-                json: {"setAsDefaultBilling":false,"setAsDefaultShipping":false,"firstName":"Deez","lastName":"Bruh","phone":"3051233210","country":{"isocode":"US","name":"United States"},"email":false,"id":null,"setAsBilling":false,"saveInAddressBook":false,"region":{"countryIso":"US","isocode":"US-FL","isocodeShort":"FL","name":"Florida"},"type":"default","LoqateSearch":"","line1":"1600 Pennsylvania Avenue","postalCode":"33139","town":"MIAMI BEACH","regionFPO":null,"shippingAddress":true,"recordType":" ","visibleInAddressBook":false},
+                json: {
+                    "setAsDefaultBilling": false,
+                    "setAsDefaultShipping": false,
+                    "firstName": "John",
+                    "lastName": "Doe",
+                    "phone": "3051233210",
+                    "country": {
+                        "isocode": "US",
+                        "name": "United States"
+                    },
+                    "email": false,
+                    "id": null,
+                    "setAsBilling": false,
+                    "saveInAddressBook": false,
+                    "region": {
+                        "countryIso": "US",
+                        "isocode": "US-FL",
+                        "isocodeShort": "FL",
+                        "name": "Florida"
+                    },
+                    "type": "default",
+                    "LoqateSearch": "",
+                    "line1": "1600 Pennsylvania Avenue",
+                    "postalCode": "33139",
+                    "town": "MIAMI BEACH",
+                    "regionFPO": null,
+                    "shippingAddress": true,
+                    "recordType": " ",
+                    "visibleInAddressBook": false
+                },
                 cookieJar: this.cookieJar
             })
-            response.statusCode == 200 ? console.log(`Task ${this.num}`.underline.blue + ` - Status ${response.statusCode}: Submitted billing info`.cyan) : console.log(`Task ${this.num}`.underline.blue + ` - Status ${response.statusCode}: ${response.statusMessage}`.red)
+            response.statusCode == 200 ? console.log(`Task ${this.num}`.underline.blue + ` - Status ${response.statusCode}: Submitted billing info`.cyan) : console.log(`Task ${this.num}`.underline.blue + ` - Status ${response.statusCode}: ${response.statusMessage}`.red);
             let re = /(?<=cart-guid=)([^;]*)/s;
-            this.cartId = re.exec(response.req['_header'])[0]
-        } catch(err) {
+            this.cartId = re.exec(response.req['_header'])[0];
+        } catch (err) {
             try {
-                console.log(`Task ${this.num}`.underline.blue + ` - ${err.response.body}`)
-            } catch(e) {
-                console.log(`Task ${this.num}`.underline.blue + ` - ${err}`)
+                console.log(`Task ${this.num}`.underline.blue + ` - ${err.response.body}`);
+            } catch (e) {
+                console.log(`Task ${this.num}`.underline.blue + ` - ${err}`);
             }
         }
     }
@@ -282,26 +346,28 @@ module.exports = class Task {
                     "paymentMethod": "CREDITCARD",
                     "returnUrl": "https://www.footlocker.com/adyen/checkout",
                     "browserInfo": {
-                       "screenWidth": 1440,
-                       "screenHeight": 900,
-                       "colorDepth": 30,
-                       "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.106 Safari/537.36",
-                       "timeZoneOffset": 240,
-                       "language": "en-US",
-                       "javaEnabled": false
+                        "screenWidth": 1440,
+                        "screenHeight": 900,
+                        "colorDepth": 30,
+                        "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.106 Safari/537.36",
+                        "timeZoneOffset": 240,
+                        "language": "en-US",
+                        "javaEnabled": false
                     }
                 },
                 cookieJar: this.cookieJar
             })
             this.cseInstance.validate(this.cardData);
-            if (response.statusCode === 200) console.log(`Task ${this.num}`.underline.blue + ` - Status 200: Successfully checked out`.green)
-        } catch(err) {
+            if (response.statusCode === 200) console.log(`Task ${this.num}`.underline.blue + ` - Status 200: Successfully checked out`.green);
+        } catch (err) {
             try {
                 if (err.response.statusCode === 400 && JSON.parse(err.response.body).errors[0].message.includes('We suggest you try again or use another payment method')) {
-                    console.log(`Task ${this.num}`.underline.blue + ` - Status 400: Payment declined`.red)
-                } else console.log(`Task ${this.num}`.underline.blue + ` - Status ${err.response.statusCode}: ${err.response.statusMessage}`.red)
-            } catch(e) {
-                console.log(`Task ${this.num}`.underline.blue + ` - ${err}`)
+                    console.log(`Task ${this.num}`.underline.blue + ` - Status 400: Payment declined`.red);
+                } else {
+                    console.log(`Task ${this.num}`.underline.blue + ` - Status ${err.response.statusCode}: ${err.response.statusMessage}`.red);
+                }
+            } catch (e) {
+                console.log(`Task ${this.num}`.underline.blue + ` - ${err}`);
             }
         }
     }
@@ -309,13 +375,10 @@ module.exports = class Task {
     async start() {
         await this.getSession();
         await this.getPdp();
-        // await sleep(1000);
         await this.addToCart();
-        // await sleep(1000);
         await this.contactInfo();
         await this.submitShipping();
         await this.submitBilling();
         await this.submitOrder();
     }
-
 }

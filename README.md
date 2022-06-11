@@ -1,6 +1,6 @@
 #  Automated footlocker checkout
 
-To create a task, edit tasks.json to include your information. Replace the current info with yours.
+To create a task, edit tasks.json to include your information. Replace the current info with yours. Current shipping and billing addresses are set to example values in the request bodies for submitShipping and submitBilling in [index.js](index.js).
 To add more tasks, add another task object to the json file in the same format as the previous task objects:
 ```JSON
 {
