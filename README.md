@@ -1,7 +1,7 @@
 #  Automated footlocker checkout
 
-To create a task, edit [tasks.json](tasks.json) to include your information. Replace the current info with yours.
-To add more tasks, add another task object to the json file in the same format as the previous task objects:
+To create a task, edit [tasks.json](tasks.json) to include your information. Replace the current info with yours. After changing the information in [tasks.json](tasks.json), run [start.js](start.js) to start the tasks you've created.
+To add more tasks, add another task object to the json file in the same format as the example task objects:
 ```JSON
 {
     "task1": {
