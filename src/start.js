@@ -7,7 +7,7 @@ let tasks = Object.create(JSON.parse(fs.readFileSync('./tasks.json', {
 })));
 let x = 1;
 
-for (i in tasks) {
+for (let i in tasks) {
     tasks[i]['generationTime'] = new Date().toISOString();
     let task = new Task(x, tasks[i]['sku'], tasks[i]['cardData'], tasks[i]['personalData']);
     x += 1;
