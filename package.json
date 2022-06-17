@@ -1,21 +1,21 @@
 {
-  "name": "footsites",
+  "name": "footlocker-checkout",
   "version": "1.0.0",
-  "description": "Automated footsites checkout",
-  "main": "index.js",
+  "description": "Automated footlocker checkout",
+  "main": "src/start.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/AE-X/Footsites.git"
+    "url": "git+https://github.com/AE-X/Footlocker-checkout.git"
   },
-  "author": "AE-X",
+  "author": "Yohr011",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/AE-X/Footsites/issues"
+    "url": "https://github.com/AE-X/Footlocker-checkout/issues"
   },
-  "homepage": "https://github.com/AE-X/Footsites#readme",
+  "homepage": "https://github.com/AE-X/Footlocker-checkout#readme",
   "dependencies": {
     "colors": "^1.4.0",
     "fs": "0.0.1-security",
