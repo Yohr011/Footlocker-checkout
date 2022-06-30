@@ -56,7 +56,7 @@ module.exports = class Task {
         } catch (err) {
             try {
                 console.log(`Task ${this.num}`.underline.blue + ` - ${err.response.body}`.red);
-            } catch (e) {
+            } catch {
                 console.log(`Task ${this.num}`.underline.blue + ` - ${err}`);
             }
         }
@@ -97,7 +97,7 @@ module.exports = class Task {
         } catch (err) {
             try {
                 console.log(`Task ${this.num}`.underline.blue + ` - ${err.response.body}`);
-            } catch (e) {
+            } catch {
                 console.log(`Task ${this.num}`.underline.blue + ` - ${err}`);
             }
         }
@@ -138,7 +138,7 @@ module.exports = class Task {
         } catch (err) {
             try {
                 console.log(`Task ${this.num}`.underline.blue + ` - ${err.response.body}`);
-            } catch (e) {
+            } catch {
                 console.log(`Task ${this.num}`.underline.blue + ` - ${err}`);
             }
         }
@@ -173,7 +173,7 @@ module.exports = class Task {
         } catch (err) {
             try {
                 console.log(`Task ${this.num}`.underline.blue + ` - ${err.response.body}`);
-            } catch (e) {
+            } catch {
                 console.log(`Task ${this.num}`.underline.blue + ` - ${err}`);
             }
         }
@@ -239,7 +239,7 @@ module.exports = class Task {
         } catch (err) {
             try {
                 console.log(`Task ${this.num}`.underline.blue + ` - ${err.response.body}`);
-            } catch (e) {
+            } catch {
                 console.log(`Task ${this.num}`.underline.blue + ` - ${err}`);
             }
         }
@@ -306,7 +306,7 @@ module.exports = class Task {
         } catch (err) {
             try {
                 console.log(`Task ${this.num}`.underline.blue + ` - ${err.response.body}`);
-            } catch (e) {
+            } catch {
                 console.log(`Task ${this.num}`.underline.blue + ` - ${err}`);
             }
         }
@@ -367,7 +367,7 @@ module.exports = class Task {
                 } else {
                     console.log(`Task ${this.num}`.underline.blue + ` - Status ${err.response.statusCode}: ${err.response.statusMessage}`.red);
                 }
-            } catch (e) {
+            } catch {
                 console.log(`Task ${this.num}`.underline.blue + ` - ${err}`);
             }
         }
