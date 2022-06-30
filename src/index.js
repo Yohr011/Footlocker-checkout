@@ -51,7 +51,9 @@ module.exports = class Task {
                 },
                 cookieJar: this.cookieJar
             })
-            response.statusCode == 200 ? console.log(`Task ${this.num}`.underline.blue + ` - Status ${response.statusCode}: Initiated session`.cyan) : console.log(`Task ${this.num}`.underline.blue + ` - Status ${response.statusCode}: ${response.statusMessage}`.red);
+            response.statusCode === 200 
+                ? console.log(`Task ${this.num}`.underline.blue + ` - Status ${response.statusCode}: Initiated session`.cyan) 
+                : console.log(`Task ${this.num}`.underline.blue + ` - Status ${response.statusCode}: ${response.statusMessage}`.red);
             this.csrfToken = JSON.parse(response.body).data.csrfToken;
         } catch (err) {
             try {
@@ -93,7 +95,9 @@ module.exports = class Task {
                 }
             }
             this.sizeSelect = this.sizeId[Math.floor(Math.random() * this.sizeId.length)];
-            response.statusCode == 200 ? console.log(`Task ${this.num}`.underline.blue + ` - Status ${response.statusCode}: Got size ID (${response.headers['x-cache']})`.cyan) : console.log(`Task ${this.num}`.underline.blue + ` - Status ${response.statusCode}: ${response.statusMessage}`.red);
+            response.statusCode === 200 
+                ? console.log(`Task ${this.num}`.underline.blue + ` - Status ${response.statusCode}: Got size ID (${response.headers['x-cache']})`.cyan) 
+                : console.log(`Task ${this.num}`.underline.blue + ` - Status ${response.statusCode}: ${response.statusMessage}`.red);
         } catch (err) {
             try {
                 console.log(`Task ${this.num}`.underline.blue + ` - ${err.response.body}`);
@@ -134,7 +138,9 @@ module.exports = class Task {
                 cookieJar: this.cookieJar
             })
             let atcResponse = JSON.parse(response.body);
-            response.statusCode == 200 ? console.log(`Task ${this.num}`.underline.blue + ` - Status ${response.statusCode}: Successful ATC - ${atcResponse.entries[0].product.baseOptions[1].selected.sku} size ${atcResponse.entries[0].product.baseOptions[0].selected.size} (${response.headers['x-cache']})`.magenta) : console.log(`Task ${this.num}`.underline.blue + ` - Status ${response.statusCode}: ${response.statusMessage}`.red);
+            response.statusCode === 200 
+                ? console.log(`Task ${this.num}`.underline.blue + ` - Status ${response.statusCode}: Successful ATC - ${atcResponse.entries[0].product.baseOptions[1].selected.sku} size ${atcResponse.entries[0].product.baseOptions[0].selected.size} (${response.headers['x-cache']})`.magenta) 
+                : console.log(`Task ${this.num}`.underline.blue + ` - Status ${response.statusCode}: ${response.statusMessage}`.red);
         } catch (err) {
             try {
                 console.log(`Task ${this.num}`.underline.blue + ` - ${err.response.body}`);
@@ -169,7 +175,9 @@ module.exports = class Task {
                 },
                 cookieJar: this.cookieJar
             })
-            response.statusCode == 200 ? console.log(`Task ${this.num}`.underline.blue + ` - Status ${response.statusCode}: Submitted contact info`.cyan) : console.log(`Task ${this.num}`.underline.blue + ` - Status ${response.statusCode}: ${response.statusMessage}`.red);
+            response.statusCode === 200 
+                ? console.log(`Task ${this.num}`.underline.blue + ` - Status ${response.statusCode}: Submitted contact info`.cyan) 
+                : console.log(`Task ${this.num}`.underline.blue + ` - Status ${response.statusCode}: ${response.statusMessage}`.red);
         } catch (err) {
             try {
                 console.log(`Task ${this.num}`.underline.blue + ` - ${err.response.body}`);
@@ -235,7 +243,9 @@ module.exports = class Task {
                 },
                 cookieJar: this.cookieJar
             })
-            response.statusCode == 201 ? console.log(`Task ${this.num}`.underline.blue + ` - Status ${response.statusCode}: Submitted shipping info`.cyan) : console.log(`Task ${this.num}`.underline.blue + ` - Status ${response.statusCode}: ${response.statusMessage}`.red);
+            response.statusCode === 201 
+                ? console.log(`Task ${this.num}`.underline.blue + ` - Status ${response.statusCode}: Submitted shipping info`.cyan) 
+                : console.log(`Task ${this.num}`.underline.blue + ` - Status ${response.statusCode}: ${response.statusMessage}`.red);
         } catch (err) {
             try {
                 console.log(`Task ${this.num}`.underline.blue + ` - ${err.response.body}`);
@@ -300,7 +310,9 @@ module.exports = class Task {
                 },
                 cookieJar: this.cookieJar
             })
-            response.statusCode == 200 ? console.log(`Task ${this.num}`.underline.blue + ` - Status ${response.statusCode}: Submitted billing info`.cyan) : console.log(`Task ${this.num}`.underline.blue + ` - Status ${response.statusCode}: ${response.statusMessage}`.red);
+            response.statusCode === 200 
+                ? console.log(`Task ${this.num}`.underline.blue + ` - Status ${response.statusCode}: Submitted billing info`.cyan) 
+                : console.log(`Task ${this.num}`.underline.blue + ` - Status ${response.statusCode}: ${response.statusMessage}`.red);
             let re = /(?<=cart-guid=)([^;]*)/s;
             this.cartId = re.exec(response.req['_header'])[0];
         } catch (err) {
